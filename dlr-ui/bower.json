@@ -1,0 +1,19 @@
+{
+  "name": "dlr-ui",
+  "main": "dlr-ui.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "vaadin-grid": "vaadin-grid#^3.0.0-beta1",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0",
+    "marked-element": "1 - 2",
+    "prism-element": "1 - 2"
+  }
+}

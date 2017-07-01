@@ -1,0 +1,88 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="dlr-ui">
+    <template>
+        <style>
+            #grid {
+                width: 1000px;
+                height: 600px;
+
+                --vaadin-grid-header-cell: {
+                    background-color: #408cb0;
+                    font-family: Lato;
+                    color: whitesmoke;
+                };
+            }
+        </style>
+
+        <vaadin-grid id="grid" items="[[items]]">
+            <vaadin-grid-column>
+                <template class="header">Datum</template>
+                <template> [[item.date]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+                <template class="header">Fahren</template>
+                <template>
+                    <paper-checkbox noink></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+                <template class="header">Norwegisch</template>
+                <template>
+                    <paper-checkbox noink></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+                <template class="header">Bass</template>
+                <template>
+                    <paper-checkbox noink></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+                <template class="header">Uni</template>
+                <template>
+                    <paper-checkbox noink></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+                <template class="header">Programmieren</template>
+                <template>
+                    <paper-checkbox noink></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+        </vaadin-grid>
+    </template>
+
+    <script>
+        /** @polymerElement */
+        class DlrUi extends Polymer.Element {
+            static get is() {
+                return 'dlr-ui';
+            }
+
+            ready() {
+                super.ready();
+
+                var items = [];
+                for (var i = 0; i < 365; i++) {
+                    items.push({date: "Day " + (i + 1)});
+                }
+
+                this.items = items;
+            }
+
+            static get properties() {
+                return {};
+            }
+        }
+
+        window.customElements.define(DlrUi.is, DlrUi);
+    </script>
+</dom-module>
