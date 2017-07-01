@@ -1,24 +1,70 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="bower_components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 
 <dom-module id="dlr-ui">
     <template>
         <style>
-            #grid {
+            vaadin-grid {
                 width: 1000px;
-                height: 600px;
+                height: 800px;
 
                 --vaadin-grid-header-cell: {
                     background-color: #408cb0;
                     font-family: Lato;
                     color: whitesmoke;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-size: 16px;
                 };
+
+                --vaadin-grid-body-cell: {
+                    text-align: center;
+                    font-family: Ubuntu;
+                };
+            }
+
+            paper-checkbox {
+                --paper-checkbox-size: 28px;
+                --paper-checkbox-checked-color: #408cb0;
+                --paper-checkbox-unchecked-color: #336699;
+
+            }
+
+            #pages {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 20px;
+                margin-left: 200px;
+            }
+
+            #pages > button {
+                user-select: none;
+                padding: 5px;
+                margin: 0 10px;
+                border-radius: 10%;
+                border: 0;
+                background: transparent;
+                outline: none;
+                cursor: pointer;
+                font-family: Lato;
+                font-size: 22px;
+            }
+
+            #pages > button:hover, #pages > button:focus {
+                font-weight: bold;
+            }
+
+            #pages > button[selected] {
+                font-weight: bold;
+                color: white;
+                background-color: #408cb0;
             }
         </style>
 
-        <vaadin-grid id="grid" items="[[items]]">
-            <vaadin-grid-column>
+        <vaadin-grid id="grid" items="[[items]]" page-size="31">
+            <vaadin-grid-column width="100px" flex-grow="0" frozen="true">
                 <template class="header">Datum</template>
                 <template> [[item.date]]</template>
             </vaadin-grid-column>
@@ -37,7 +83,7 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column>
+            <vaadin-grid-column width="50px">
                 <template class="header">Bass</template>
                 <template>
                     <paper-checkbox noink></paper-checkbox>
@@ -58,6 +104,14 @@
                 </template>
             </vaadin-grid-column>
         </vaadin-grid>
+
+        <div id="pages">
+            <button on-click="_prev">&lt;</button>
+            <template is="dom-repeat" items="[[pages]]">
+                <button on-click="_select" selected$="[[_isSelected(page, item)]]">[[item]]</button>
+            </template>
+            <button on-click="_next">&gt;</button>
+        </div>
     </template>
 
     <script>
@@ -70,6 +124,8 @@
             ready() {
                 super.ready();
 
+                this.page = 0;
+
                 var items = [];
                 for (var i = 0; i < 365; i++) {
                     items.push({date: "Day " + (i + 1)});
@@ -79,7 +135,55 @@
             }
 
             static get properties() {
-                return {};
+                return {
+                    items: {
+                        type: Array
+                    },
+                    page: {
+                        type: Number
+                    },
+                    pages: {
+                        type: Array
+                    }
+                };
+            }
+
+            static get observers() {
+                return ['_itemsChanged(items, page)'];
+            }
+
+            _isSelected(page, item) {
+                return page === item - 1;
+            }
+
+            _select() {
+                this.addEventListener('click', e => {
+                    this.page = e.model.item - 1;
+                });
+            }
+
+            _next() {
+                this.page = Math.min(this.pages.length - 1, this.page + 1);
+            }
+
+            _prev() {
+                this.page = Math.max(0, this.page - 1);
+            }
+
+            _itemsChanged(items, page) {
+                if (items === undefined || page === undefined) {
+                    return;
+                }
+
+                if (!this.pages) {
+                    this.pages = Array.apply(null, {length: Math.ceil(items.length / this.$.grid.pageSize)}).map(function (item, index) {
+                        return index + 1;
+                    });
+                }
+
+                var start = page * this.$.grid.pageSize;
+                var end = (page + 1) * this.$.grid.pageSize;
+                this.$.grid.items = items.slice(start, end);
             }
         }
 
