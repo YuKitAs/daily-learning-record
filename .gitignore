@@ -1,2 +1,5 @@
 dlr-ui/bower_components/
 dlr-ui/.idea/
+dlr/.idea/
+dlr/.gradle/
+dlr/build/
