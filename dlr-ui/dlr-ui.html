@@ -1,7 +1,9 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html">
+<link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
 
 <dom-module id="dlr-ui">
     <template>
@@ -61,57 +63,78 @@
                 color: white;
                 background-color: #408cb0;
             }
+
+            button {
+                width: 50px;
+            }
         </style>
 
-        <vaadin-grid id="grid" items="[[items]]" page-size="31">
-            <vaadin-grid-column width="100px" flex-grow="0" frozen="true">
+        <vaadin-date-picker id="date-picker" value="{{date}}"></vaadin-date-picker>
+        <button on-click="_add">new</button>
+        <p></p>
+
+        <vaadin-grid id="grid" items="[[items]]">
+            <vaadin-grid-column frozen="true">
                 <template class="header">Datum</template>
-                <template> [[item.date]]</template>
+                <template>[[item.date]]</template>
             </vaadin-grid-column>
 
             <vaadin-grid-column>
-                <template class="header">Fahren</template>
+                <template class="header">{{task1}}</template>
                 <template>
-                    <paper-checkbox noink></paper-checkbox>
+                    <paper-checkbox noink checked="{{item.task1}}"
+                                    disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
                 </template>
             </vaadin-grid-column>
 
             <vaadin-grid-column>
-                <template class="header">Norwegisch</template>
+                <template class="header">{{task2}}</template>
                 <template>
-                    <paper-checkbox noink></paper-checkbox>
+                    <paper-checkbox noink checked="{{item.task2}}"
+                                    disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
                 </template>
             </vaadin-grid-column>
 
             <vaadin-grid-column width="50px">
-                <template class="header">Bass</template>
+                <template class="header">{{task3}}</template>
                 <template>
-                    <paper-checkbox noink></paper-checkbox>
+                    <paper-checkbox noink checked="{{item.task3}}"
+                                    disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
                 </template>
             </vaadin-grid-column>
 
             <vaadin-grid-column>
-                <template class="header">Uni</template>
+                <template class="header">{{task4}}</template>
                 <template>
-                    <paper-checkbox noink></paper-checkbox>
+                    <paper-checkbox noink checked="{{item.task4}}"
+                                    disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
                 </template>
             </vaadin-grid-column>
 
             <vaadin-grid-column>
-                <template class="header">Programmieren</template>
+                <template class="header">{{task5}}</template>
                 <template>
-                    <paper-checkbox noink></paper-checkbox>
+                    <paper-checkbox noink checked="{{item.task5}}"
+                                    disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="50px">
+                <template>
+                    <button hidden="[[editing]]" on-click="_edit">edit</button>
+                    <button hidden="[[!editing]]" on-click="_save">save</button>
                 </template>
             </vaadin-grid-column>
         </vaadin-grid>
 
-        <div id="pages">
+        <!--<div id="pages">
             <button on-click="_prev">&lt;</button>
             <template is="dom-repeat" items="[[pages]]">
                 <button on-click="_select" selected$="[[_isSelected(page, item)]]">[[item]]</button>
             </template>
             <button on-click="_next">&gt;</button>
-        </div>
+        </div>-->
+
     </template>
 
     <script>
@@ -124,14 +147,8 @@
             ready() {
                 super.ready();
 
-                this.page = 0;
-
-                var items = [];
-                for (var i = 0; i < 365; i++) {
-                    items.push({date: "Day " + (i + 1)});
-                }
-
-                this.items = items;
+                this.items = [];
+                this.editing = null;
             }
 
             static get properties() {
@@ -139,52 +156,99 @@
                     items: {
                         type: Array
                     },
-                    page: {
-                        type: Number
+                    /*                    page: {
+                     type: Number
+                     },
+                     pages: {
+                     type: Array
+                     },*/
+                    task1: {
+                        type: String,
+                        value: "Fahren"
                     },
-                    pages: {
-                        type: Array
+                    task2: {
+                        type: String,
+                        value: "Bass"
+                    },
+                    task3: {
+                        type: String,
+                        value: "Norwegisch"
+                    },
+                    task4: {
+                        type: String,
+                        value: "Uni"
+                    },
+                    task5: {
+                        type: String,
+                        value: "Programmieren"
+                    },
+                    editing: {
+                        type: Object
                     }
                 };
             }
 
-            static get observers() {
-                return ['_itemsChanged(items, page)'];
-            }
+            /*            static get observers() {
+             return ['_itemsChanged(items, page)'];
+             }*/
 
-            _isSelected(page, item) {
-                return page === item - 1;
-            }
-
-            _select() {
-                this.addEventListener('click', e => {
-                    this.page = e.model.item - 1;
-                });
-            }
-
-            _next() {
-                this.page = Math.min(this.pages.length - 1, this.page + 1);
-            }
-
-            _prev() {
-                this.page = Math.max(0, this.page - 1);
-            }
-
-            _itemsChanged(items, page) {
-                if (items === undefined || page === undefined) {
-                    return;
-                }
-
-                if (!this.pages) {
-                    this.pages = Array.apply(null, {length: Math.ceil(items.length / this.$.grid.pageSize)}).map(function (item, index) {
-                        return index + 1;
+            _add() {
+                if (this.date != "") {
+                    this.items.unshift({
+                        date: this.date, task1: false, task2: false, task3: false,
+                        task4: false, task5: false
                     });
+                    this.$.grid.clearCache();
                 }
-
-                var start = page * this.$.grid.pageSize;
-                var end = (page + 1) * this.$.grid.pageSize;
-                this.$.grid.items = items.slice(start, end);
             }
+
+            _isEditing(editing, item) {
+                return item === editing;
+            }
+
+            _edit(e) {
+                this.editing = e.model.item;
+            }
+
+            _save(e) {
+                this.editing = null;
+                /*var item = e.model.item;*/
+                this.$.grid.clearCache();
+            }
+
+            /*            _isSelected(page, item) {
+             return page === item - 1;
+             }
+
+             _select() {
+             this.addEventListener('click', e => {
+             this.page = e.model.item - 1;
+             });
+             }
+
+             _next() {
+             this.page = Math.min(this.pages.length - 1, this.page + 1);
+             }
+
+             _prev() {
+             this.page = Math.max(0, this.page - 1);
+             }
+
+             _itemsChanged(items, page) {
+             if (items === undefined || page === undefined) {
+             return;
+             }
+
+             if (!this.pages) {
+             this.pages = Array.apply(null, {length: Math.ceil(items.length / this.$.grid.pageSize)}).map(function (item, index) {
+             return index + 1;
+             });
+             }
+
+             var start = page * this.$.grid.pageSize;
+             var end = (page + 1) * this.$.grid.pageSize;
+             this.$.grid.items = items.slice(start, end);
+             }*/
         }
 
         window.customElements.define(DlrUi.is, DlrUi);

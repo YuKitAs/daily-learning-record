@@ -3,13 +3,15 @@
   "main": "dlr-ui.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "iron-ajax": "PolymerElements/iron-ajax#^2.0.2"
+    "iron-ajax": "PolymerElements/iron-ajax#^2.0.2",
+    "paper-button": "PolymerElements/paper-button#^2.0.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0",
     "web-component-tester": "^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "vaadin-grid": "vaadin-grid#^3.0.0-beta1",
+    "vaadin-date-picker": "vaadin-date-picker#^2.0.0-beta1",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
   },
   "resolutions": {
