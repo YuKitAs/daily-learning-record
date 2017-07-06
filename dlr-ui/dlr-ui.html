@@ -69,6 +69,10 @@
             button {
                 width: 50px;
             }
+
+            .buttons {
+                display: block;
+            }
         </style>
 
         <vaadin-date-picker id="date-picker" value="{{date}}"></vaadin-date-picker>
@@ -130,10 +134,13 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column width="50px">
+            <vaadin-grid-column>
                 <template>
-                    <button hidden="[[editing]]" on-click="_edit">edit</button>
-                    <button hidden="[[!editing]]" on-click="_save">save</button>
+                    <div class="buttons">
+                        <button hidden="[[editing]]" on-click="_edit">edit</button>
+                        <button hidden="[[!_isEditing(editing, item)]]" on-click="_save">save</button>
+                        <button hidden="[[!_isEditing(editing, item)]]" on-tap="_cancel">cancel</button>
+                    </div>
                 </template>
             </vaadin-grid-column>
         </vaadin-grid>
@@ -255,6 +262,12 @@
 
                 this.$.grid.clearCache();
             }
+
+            _cancel() {
+                this.editing = null;
+                this.$.grid.clearCache();
+            }
+
 
             /*            _isSelected(page, item) {
              return page === item - 1;
