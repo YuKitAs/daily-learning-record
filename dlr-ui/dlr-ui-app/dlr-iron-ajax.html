@@ -3,9 +3,7 @@
 
 <dom-module id="dlr-iron-ajax">
     <template>
-        <style>
-        </style>
-<!--        <iron-ajax
+        <iron-ajax
                 auto
                 url="http://localhost:8080/dlr/records"
                 body='{{data}}'
@@ -14,7 +12,7 @@
                 content-type="application/json"
                 on-error="handleResponse"
                 last-response="{{response}}">
-        </iron-ajax>-->
+        </iron-ajax>
     </template>
 
     <script>
@@ -29,7 +27,45 @@
             }
 
             static get properties() {
-                return {};
+                return {
+                    date: {
+                        type: String,
+                        value: "2017-01-01"
+                    },
+                    task1: {
+                        type: Boolean
+                    },
+                    task2: {
+                        type: Boolean
+                    },
+                    task3: {
+                        type: Boolean
+                    },
+                    task4: {
+                        type: Boolean
+                    },
+                    task5: {
+                        type: Boolean
+                    },
+                    request: {
+                        type: String
+                    },
+                    data: {
+                        computed: "computeData(date, task1, task2, task3, task4, task5)",
+                        notify: true
+                    },
+                    response: {
+                        notify: true
+                    }
+                };
+            }
+
+            computeData(date, task1, task2, task3, task4, task5) {
+                return {"date": date, "task1": task1, "task2": task2, "task3": task3, "task4": task4, "task5": task5};
+            }
+
+            handleResponse(e) {
+                console.log(e.detail.request.xhr.response);
             }
         }
 

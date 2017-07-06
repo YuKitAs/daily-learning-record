@@ -4,6 +4,7 @@
 <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="dlr-ui-app/dlr-iron-ajax.html">
 
 <dom-module id="dlr-ui">
     <template>
@@ -127,6 +128,9 @@
             </vaadin-grid-column>
         </vaadin-grid>
 
+        <dlr-iron-ajax request="POST" date="{{selectedDate}}" task1="{{selectedTask1}}" task2="{{selectedTask2}}"
+                       task3="{{selectedTask3}}" task4="{{selectedTask4}}" task5="{{selectedTask5}}"></dlr-iron-ajax>
+
         <!--<div id="pages">
             <button on-click="_prev">&lt;</button>
             <template is="dom-repeat" items="[[pages]]">
@@ -184,7 +188,26 @@
                     },
                     editing: {
                         type: Object
+                    },
+                    selectedDate: {
+                        type: String
+                    },
+                    selectedTask1: {
+                        type: Boolean
+                    },
+                    selectedTask2: {
+                        type: Boolean
+                    },
+                    selectedTask3: {
+                        type: Boolean
+                    },
+                    selectedTask4: {
+                        type: Boolean
+                    },
+                    selectedTask5: {
+                        type: Boolean
                     }
+
                 };
             }
 
@@ -212,7 +235,14 @@
 
             _save(e) {
                 this.editing = null;
-                /*var item = e.model.item;*/
+
+                this.selectedDate = e.model.item.date;
+                this.selectedTask1 = e.model.item.task1;
+                this.selectedTask2 = e.model.item.task2;
+                this.selectedTask3 = e.model.item.task3;
+                this.selectedTask4 = e.model.item.task4;
+                this.selectedTask5 = e.model.item.task5;
+
                 this.$.grid.clearCache();
             }
 

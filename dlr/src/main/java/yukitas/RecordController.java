@@ -1,6 +1,8 @@
 package yukitas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,18 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/daily_learning_record")
+@RequestMapping("/dlr")
 public class RecordController {
     @Autowired
     private RecordRepository repository;
 
+    @CrossOrigin(origins = "http://127.0.0.1:8081")
     @RequestMapping(value = "/records", method = RequestMethod.GET)
     public List<Record> getAllRecords() {
         return repository.findAll();
     }
 
+    @CrossOrigin(origins = "http://127.0.0.1:8081")
     @RequestMapping(value = "/records", method = RequestMethod.POST)
-    public List<Record> saveRecords(@RequestBody List<Record> records) {
-        return repository.save(records);
+    public Record saveRecord(@RequestBody Record record) {
+        return repository.save(record);
+    }
+
+    @RequestMapping(value = "/records/{id}", method = RequestMethod.DELETE)
+    public void deleteRecord(@PathVariable String id) {
+        repository.delete(id);
     }
 }
