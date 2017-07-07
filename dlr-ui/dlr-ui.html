@@ -39,11 +39,18 @@
                 };
             }
 
+            vaadin-grid:hover {
+                box-shadow: 0 0 20px rgba(55, 55, 55, 0.11), 0 0 10px rgba(75, 75, 75, 0.16);
+            }
+
+            vaadin-date-picker:hover {
+                box-shadow: 0 0 10px rgba(55, 55, 55, 0.11), 0 0 6px rgba(75, 75, 75, 0.16);
+            }
+
             paper-checkbox {
                 --paper-checkbox-size: 28px;
                 --paper-checkbox-checked-color: #408cb0;
                 --paper-checkbox-unchecked-color: #336699;
-
             }
 
             paper-icon-button#new {
@@ -94,7 +101,7 @@
 
         <div class="main-content">
             <div class="add">
-                <vaadin-date-picker id="date-picker" value="{{date}}" placeholder="choose a date"></vaadin-date-picker>
+                <vaadin-date-picker id="date-picker" value="{{date}}" placeholder="Choose a date"></vaadin-date-picker>
                 <paper-icon-button id="new" src="../dlr-ui-app/assets/ic_add_box.svg"
                                    title="new" on-tap="_add"></paper-icon-button>
                 <div id="error-msg"></div>
@@ -286,7 +293,7 @@
                 this.selectedTask4 = selectedItem.task4;
                 this.selectedTask5 = selectedItem.task5;
 
-                this.$.ajax.generateRequest();
+                this.$.ajax.$["iron-ajax"].generateRequest();
 
                 this.$.grid.clearCache();
             }

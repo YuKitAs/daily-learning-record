@@ -3,14 +3,14 @@
 
 <dom-module id="dlr-iron-ajax">
     <template>
-        <iron-ajax
-                url="http://localhost:8080/dlr/records"
-                body="{{data}}"
-                method="{{request}}"
-                handle-as="json"
-                content-type="application/json"
-                on-error="handleResponse"
-                last-response="{{response}}">
+        <iron-ajax id="iron-ajax"
+                   url="http://localhost:8080/dlr/records"
+                   body="{{data}}"
+                   method="{{request}}"
+                   handle-as="json"
+                   content-type="application/json"
+                   on-error="handleResponse"
+                   last-response="{{response}}">
         </iron-ajax>
     </template>
 
