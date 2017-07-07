@@ -12,20 +12,28 @@
         <style>
             vaadin-grid {
                 width: 1000px;
-                height: 800px;
+                height: auto;
+                margin: auto;
 
                 --vaadin-grid-header-cell: {
                     background-color: #408cb0;
                     font-family: Lato;
                     color: whitesmoke;
                     text-align: center;
-                    text-transform: uppercase;
-                    font-size: 16px;
+                    text-transform: capitalize;
+                    font-size: 18px;
                 };
 
                 --vaadin-grid-body-cell: {
                     text-align: center;
-                    font-family: Ubuntu;
+                    font-family: Lato;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #4f6464;
+                };
+
+                --vaadin-grid-body-row-odd-cell: {
+                    background-color: rgb(251, 252, 254);
                 };
             }
 
@@ -36,47 +44,56 @@
 
             }
 
-            #pages {
-                display: flex;
-                flex-wrap: wrap;
-                margin-top: 20px;
-                margin-left: 200px;
-            }
-
-            #pages > button {
-                user-select: none;
-                padding: 5px;
-                margin: 0 10px;
-                border-radius: 10%;
-                border: 0;
-                background: transparent;
-                outline: none;
-                cursor: pointer;
-                font-family: Lato;
-                font-size: 22px;
-            }
-
-            #pages > button:hover, #pages > button:focus {
+            paper-button#new {
+                background-color: rgb(95, 99, 100);
+                color: whitesmoke;
+                font-family: arial, sans-serif;
                 font-weight: bold;
+                font-size: 14px;
             }
 
-            #pages > button[selected] {
-                font-weight: bold;
-                color: white;
-                background-color: #408cb0;
-            }
-
-            button {
-                width: 50px;
+            paper-button#new:hover {
+                background-color: rgba(95, 99, 100, 0.5);
             }
 
             .buttons {
                 display: block;
             }
+
+            paper-button.actions {
+                background-color: #bdcccc;
+                color: #4f6464;
+                font-family: arial, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            #title {
+                text-align: center;
+                font-family: Lato;
+                color: #4f6464;
+            }
+
+            .add {
+                text-align: center;
+            }
+
+            #error-msg {
+                text-align: center;
+                font-family: Lato;
+                color: #ad1457;
+            }
         </style>
 
-        <vaadin-date-picker id="date-picker" value="{{date}}"></vaadin-date-picker>
-        <button on-click="_add">new</button>
+        <h2 id="title">Daily Learning Record</h2>
+
+        <div class="add">
+            <vaadin-date-picker id="date-picker" value="{{date}}"></vaadin-date-picker>
+            <paper-button id="new" raised noink on-click="_add">new</paper-button>
+        </div>
+        <p></p>
+
+        <div id="error-msg"></div>
         <p></p>
 
         <iron-ajax
@@ -89,12 +106,12 @@
         </iron-ajax>
 
         <vaadin-grid id="grid" items="[[items]]">
-            <vaadin-grid-column frozen="true">
+            <vaadin-grid-column width="80px" frozen="true">
                 <template class="header">Datum</template>
                 <template>[[item.date]]</template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column>
+            <vaadin-grid-column width="80px">
                 <template class="header">{{task1}}</template>
                 <template>
                     <paper-checkbox noink checked="{{item.task1}}"
@@ -102,7 +119,7 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column>
+            <vaadin-grid-column width="80px">
                 <template class="header">{{task2}}</template>
                 <template>
                     <paper-checkbox noink checked="{{item.task2}}"
@@ -110,7 +127,7 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column width="50px">
+            <vaadin-grid-column width="80px">
                 <template class="header">{{task3}}</template>
                 <template>
                     <paper-checkbox noink checked="{{item.task3}}"
@@ -118,7 +135,7 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column>
+            <vaadin-grid-column width="80px">
                 <template class="header">{{task4}}</template>
                 <template>
                     <paper-checkbox noink checked="{{item.task4}}"
@@ -126,7 +143,7 @@
                 </template>
             </vaadin-grid-column>
 
-            <vaadin-grid-column>
+            <vaadin-grid-column width="80px">
                 <template class="header">{{task5}}</template>
                 <template>
                     <paper-checkbox noink checked="{{item.task5}}"
@@ -137,9 +154,13 @@
             <vaadin-grid-column>
                 <template>
                     <div class="buttons">
-                        <button hidden="[[editing]]" on-click="_edit">edit</button>
-                        <button hidden="[[!_isEditing(editing, item)]]" on-click="_save">save</button>
-                        <button hidden="[[!_isEditing(editing, item)]]" on-tap="_cancel">cancel</button>
+                        <paper-button class="actions" raised hidden="[[editing]]" on-click="_edit">edit</paper-button>
+                        <paper-button class="actions" raised hidden="[[!_isEditing(editing, item)]]"
+                                      on-click="_save">save
+                        </paper-button>
+                        <paper-button class="actions" raised hidden="[[!_isEditing(editing, item)]]"
+                                      on-tap="_cancel">cancel
+                        </paper-button>
                     </div>
                 </template>
             </vaadin-grid-column>
@@ -147,15 +168,6 @@
 
         <dlr-iron-ajax request="POST" date="{{selectedDate}}" task1="{{selectedTask1}}" task2="{{selectedTask2}}"
                        task3="{{selectedTask3}}" task4="{{selectedTask4}}" task5="{{selectedTask5}}"></dlr-iron-ajax>
-
-        <!--<div id="pages">
-            <button on-click="_prev">&lt;</button>
-            <template is="dom-repeat" items="[[pages]]">
-                <button on-click="_select" selected$="[[_isSelected(page, item)]]">[[item]]</button>
-            </template>
-            <button on-click="_next">&gt;</button>
-        </div>-->
-
     </template>
 
     <script>
@@ -177,12 +189,6 @@
                     items: {
                         type: Array
                     },
-                    /*                    page: {
-                     type: Number
-                     },
-                     pages: {
-                     type: Array
-                     },*/
                     task1: {
                         type: String,
                         value: "Fahren"
@@ -224,20 +230,25 @@
                     selectedTask5: {
                         type: Boolean
                     }
-
                 };
             }
 
-            /*            static get observers() {
-             return ['_itemsChanged(items, page)'];
-             }*/
-
             _add() {
                 if (this.date != "") {
+                    for (var i = 0; i < this.items.length; i++) {
+                        if (this.items[i]["date"] == this.date) {
+                            this.$["error-msg"].innerText = "A record on this day already exists!";
+                            return;
+                        }
+                    }
+
+                    this.$["error-msg"].innerText = "";
+
                     this.items.unshift({
                         date: this.date, task1: false, task2: false, task3: false,
                         task4: false, task5: false
                     });
+
                     this.$.grid.clearCache();
                 }
             }
@@ -253,12 +264,13 @@
             _save(e) {
                 this.editing = null;
 
-                this.selectedDate = e.model.item.date;
-                this.selectedTask1 = e.model.item.task1;
-                this.selectedTask2 = e.model.item.task2;
-                this.selectedTask3 = e.model.item.task3;
-                this.selectedTask4 = e.model.item.task4;
-                this.selectedTask5 = e.model.item.task5;
+                var selectedItem = e.model.item;
+                this.selectedDate = selectedItem.date;
+                this.selectedTask1 = selectedItem.task1;
+                this.selectedTask2 = selectedItem.task2;
+                this.selectedTask3 = selectedItem.task3;
+                this.selectedTask4 = selectedItem.task4;
+                this.selectedTask5 = selectedItem.task5;
 
                 this.$.grid.clearCache();
             }
@@ -267,41 +279,6 @@
                 this.editing = null;
                 this.$.grid.clearCache();
             }
-
-
-            /*            _isSelected(page, item) {
-             return page === item - 1;
-             }
-
-             _select() {
-             this.addEventListener('click', e => {
-             this.page = e.model.item - 1;
-             });
-             }
-
-             _next() {
-             this.page = Math.min(this.pages.length - 1, this.page + 1);
-             }
-
-             _prev() {
-             this.page = Math.max(0, this.page - 1);
-             }
-
-             _itemsChanged(items, page) {
-             if (items === undefined || page === undefined) {
-             return;
-             }
-
-             if (!this.pages) {
-             this.pages = Array.apply(null, {length: Math.ceil(items.length / this.$.grid.pageSize)}).map(function (item, index) {
-             return index + 1;
-             });
-             }
-
-             var start = page * this.$.grid.pageSize;
-             var end = (page + 1) * this.$.grid.pageSize;
-             this.$.grid.items = items.slice(start, end);
-             }*/
         }
 
         window.customElements.define(DlrUi.is, DlrUi);
