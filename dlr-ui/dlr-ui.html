@@ -14,16 +14,16 @@
         <style>
             vaadin-grid {
                 width: inherit;
-                height: 730px;
+                height: 720px;
                 margin: auto;
 
                 --vaadin-grid-header-cell: {
                     background-color: #408cb0;
-                    font-family: Lato;
+                    font-family: 'Comfortaa', cursive;
                     color: whitesmoke;
                     text-align: center;
                     text-transform: capitalize;
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: bold;
                 };
 
@@ -57,9 +57,19 @@
             }
 
             #title {
+                margin-top: 20px;
                 text-align: center;
-                font-family: Lato;
+                font-family: 'Lemonada', cursive;
+                font-size: 34px;
+                font-weight: bold;
                 color: #4f6464;
+            }
+
+            #note-icon {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 38px;
             }
 
             .main-content {
@@ -79,11 +89,12 @@
             }
         </style>
 
-        <h2 id="title">Daily Learning Record</h2>
+        <div id="title">Daily Learning Record</div>
+        <img id="note-icon" src="../dlr-ui-app/assets/ic_event.svg"/>
 
         <div class="main-content">
             <div class="add">
-                <vaadin-date-picker id="date-picker" value="{{date}}"></vaadin-date-picker>
+                <vaadin-date-picker id="date-picker" value="{{date}}" placeholder="choose a date"></vaadin-date-picker>
                 <paper-icon-button id="new" src="../dlr-ui-app/assets/ic_add_box.svg"
                                    title="new" on-tap="_add"></paper-icon-button>
                 <div id="error-msg"></div>
