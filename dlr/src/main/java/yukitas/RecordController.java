@@ -16,15 +16,20 @@ public class RecordController {
     @Autowired
     private RecordRepository repository;
 
-    @CrossOrigin(origins = "http://127.0.0.1:8081")
+    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.GET)
     public List<Record> getAllRecords() {
         return repository.findAll();
     }
 
-    @CrossOrigin(origins = "http://127.0.0.1:8081")
+    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.POST)
     public Record saveRecord(@RequestBody Record record) {
+        Record old = repository.findByDate(record.getDate());
+        if (old != null) {
+            record.setId(old.getId());
+        }
+
         return repository.save(record);
     }
 

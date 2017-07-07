@@ -25,6 +25,14 @@ public class Record {
         this.task5 = task5;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getDate() {
         return date;
     }

@@ -166,8 +166,9 @@
             </vaadin-grid-column>
         </vaadin-grid>
 
-        <dlr-iron-ajax request="POST" date="{{selectedDate}}" task1="{{selectedTask1}}" task2="{{selectedTask2}}"
-                       task3="{{selectedTask3}}" task4="{{selectedTask4}}" task5="{{selectedTask5}}"></dlr-iron-ajax>
+        <dlr-iron-ajax id="ajax" request="POST" date="{{selectedDate}}" task1="{{selectedTask1}}"
+                       task2="{{selectedTask2}}" task3="{{selectedTask3}}" task4="{{selectedTask4}}"
+                       task5="{{selectedTask5}}"></dlr-iron-ajax>
     </template>
 
     <script>
@@ -271,6 +272,8 @@
                 this.selectedTask3 = selectedItem.task3;
                 this.selectedTask4 = selectedItem.task4;
                 this.selectedTask5 = selectedItem.task5;
+
+                this.$.ajax.generateRequest();
 
                 this.$.grid.clearCache();
             }
