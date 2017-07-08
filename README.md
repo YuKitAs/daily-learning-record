@@ -22,6 +22,7 @@ Main technologies involved:
 * Front-End
   * HTML/CSS
   * JavaScript with Polymer 2.0
+  
 * Back-End
   * Gradle
   * MongoDB
