@@ -12,4 +12,4 @@ Screenshots:
 ![](../master/screenshots/Screenshot-daily-learning-record.png)
 
 
-![](Screenshot-daily-learning-record-editing.png)
+![](../master/screenshots/Screenshot-daily-learning-record-editing.png)
