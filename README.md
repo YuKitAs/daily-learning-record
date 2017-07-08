@@ -20,10 +20,12 @@ The purpose is to learn about full-stack web app development.
 Main technologies involved: 
 
 * Front-End
+
   * HTML/CSS
   * JavaScript with Polymer 2.0
   
 * Back-End
+
   * Gradle
   * MongoDB
   * Java with Spring Boot
