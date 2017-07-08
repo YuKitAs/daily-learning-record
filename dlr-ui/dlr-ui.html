@@ -2,6 +2,7 @@
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html">
 <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="bower_components/vaadin-grid/vaadin-grid-sorter.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
@@ -109,9 +110,11 @@
             <p></p>
 
             <div>
-                <vaadin-grid id="grid" items="[[items]]" size="15">
+                <vaadin-grid id="grid" items="[[items]]">
                     <vaadin-grid-column width="80px" frozen="true">
-                        <template class="header">Datum</template>
+                        <template class="header">
+                            <vaadin-grid-sorter path="date">Datum</vaadin-grid-sorter>
+                        </template>
                         <template>[[item.date]]</template>
                     </vaadin-grid-column>
 
