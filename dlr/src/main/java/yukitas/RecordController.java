@@ -14,27 +14,22 @@ import java.util.List;
 @RequestMapping("/dlr")
 public class RecordController {
     @Autowired
-    private RecordRepository repository;
+    private RecordService service;
 
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.GET)
     public List<Record> getAllRecords() {
-        return repository.findAll();
+        return service.getAllRecords();
     }
 
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.POST)
     public Record saveRecord(@RequestBody Record record) {
-        Record old = repository.findByDate(record.getDate());
-        if (old != null) {
-            record.setId(old.getId());
-        }
-
-        return repository.save(record);
+        return service.createRecord(record);
     }
 
     @RequestMapping(value = "/records/{id}", method = RequestMethod.DELETE)
     public void deleteRecord(@PathVariable String id) {
-        repository.delete(id);
+        service.deleteRecord(id);
     }
 }

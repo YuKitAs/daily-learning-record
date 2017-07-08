@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = {SpringMongoConfiguration.class})
-public class RecordRepositoryTest {
+public class RecordRepositoryIntegrationTest {
     private static final String DATE = "2017-07-07";
     private static final Boolean TASK_1 = true;
     private static final Boolean TASK_2 = false;
