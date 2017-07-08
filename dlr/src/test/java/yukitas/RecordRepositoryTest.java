@@ -5,19 +5,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration(classes = {SpringMongoConfiguration.class})
 public class RecordRepositoryTest {
     private static final String DATE = "2017-07-07";
-    private static final Boolean TASK_1 = false;
+    private static final Boolean TASK_1 = true;
     private static final Boolean TASK_2 = false;
     private static final Boolean TASK_3 = false;
-    private static final Boolean TASK_4 = true;
-    private static final Boolean TASK_5 = true;
+    private static final Boolean TASK_4 = false;
+    private static final Boolean TASK_5 = false;
 
     private Record record;
     private String recordId;
