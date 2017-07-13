@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>my-title</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../dlr-ui-app/dlr-iron-ajax.html">
+</head>
+<body>
+<test-fixture id="basic">
+    <template>
+        <dlr-iron-ajax></dlr-iron-ajax>
+    </template>
+</test-fixture>
+
+<script>
+    suite("ajax works", function () {
+        var ajax;
+        var request;
+        var server;
+        var responseHeaders = {
+            json: {"Content-Type": "application/json"}
+        };
+
+        setup(function () {
+            server = sinon.fakeServer.create();
+            server.respondWith(
+                "GET",
+                /\/responds_to_get_with_json.*/, [
+                    200,
+                    responseHeaders.json,
+                    '{"success": true}'
+                ]
+            );
+        });
+
+        suite("making GET request", function () {
+            var ironAjax;
+
+            setup(function () {
+                ajax = fixture("basic");
+                ironAjax = ajax.shadowRoot.querySelector("#iron-ajax");
+                ironAjax.url = "/responds_to_get_with_json";
+            });
+
+            test("got response successfully", function () {
+                request = ironAjax.generateRequest();
+                server.respond();
+
+                expect(request.response).to.be.ok;
+                expect(request.response).to.be.an("object");
+                expect(request.response.success).to.be.equal(true);
+            });
+
+            test("has the correct xhr method", function () {
+                request = ironAjax.generateRequest();
+                expect(request.xhr.method).to.be.equal("GET");
+            });
+        });
+
+        teardown(function () {
+            server.restore();
+        });
+    });
+</script>
+</body>
+</html>

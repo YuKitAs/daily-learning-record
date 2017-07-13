@@ -210,9 +210,6 @@
 
             static get properties() {
                 return {
-                    items: {
-                        type: Array
-                    },
                     task1: {
                         type: String,
                         value: "Fahren"
@@ -233,27 +230,14 @@
                         type: String,
                         value: "Programmieren"
                     },
-                    editing: {
-                        type: Object
-                    },
-                    selectedDate: {
-                        type: String
-                    },
-                    selectedTask1: {
-                        type: Boolean
-                    },
-                    selectedTask2: {
-                        type: Boolean
-                    },
-                    selectedTask3: {
-                        type: Boolean
-                    },
-                    selectedTask4: {
-                        type: Boolean
-                    },
-                    selectedTask5: {
-                        type: Boolean
-                    }
+                    items: Array,
+                    editing: Object,
+                    selectedDate: String,
+                    selectedTask1: Boolean,
+                    selectedTask2: Boolean,
+                    selectedTask3: Boolean,
+                    selectedTask4: Boolean,
+                    selectedTask5: Boolean
                 };
             }
 
