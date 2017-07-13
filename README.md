@@ -2,6 +2,8 @@
 
 A Polymer 2.0 web application to record the daily completion status of user-defined tasks.
 
+Tested in Chrome 57 and Firefox 54 only.
+
 0. Stop Apache Tomcat if it's running
 1. Start MongoDB
 2. Run `java -jar path/to/daily-learning-record/dlr/build/libs/gs-rest-service-0.1.0.jar` (`gradle build` before if necessary)
