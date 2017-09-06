@@ -2,7 +2,7 @@
 
 A Polymer 2.0 web application to record the daily completion status of user-defined tasks.
 
-Tested in Chrome 57 and Firefox 54 only.
+The main purpose of this web-app is to learn about full-stack development. Tested in Chrome 57 and Firefox 54 only.
 
 ## Usage
 
@@ -17,9 +17,6 @@ Tested in Chrome 57 and Firefox 54 only.
 
 
 ![](../master/screenshots/Screenshot-daily-learning-record-editing.png)
-
-
-The purpose is to learn about full-stack web app development.
 
 ## Main technologies involved
 
