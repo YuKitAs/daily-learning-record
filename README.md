@@ -4,12 +4,14 @@ A Polymer 2.0 web application to record the daily completion status of user-defi
 
 Tested in Chrome 57 and Firefox 54 only.
 
+## Usage:
+
 0. Stop Apache Tomcat if it's running
 1. Start MongoDB
 2. Run `java -jar path/to/daily-learning-record/dlr/build/libs/gs-rest-service-0.1.0.jar` (`gradle build` before if necessary)
 3. Run `polymer serve --open` in `path/to/daily-learning-record/dlr-ui` (`bower install` before if necessary) to open the app in browser
 
-Screenshots:
+## Screenshots
 
 ![](../master/screenshots/Screenshot-daily-learning-record.png)
 
@@ -19,7 +21,7 @@ Screenshots:
 
 The purpose is to learn about full-stack web app development.
 
-Main technologies involved: 
+## Main technologies involved
 
 * Front-End
   * HTML/CSS
