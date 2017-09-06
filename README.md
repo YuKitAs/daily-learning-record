@@ -4,7 +4,7 @@ A Polymer 2.0 web application to record the daily completion status of user-defi
 
 Tested in Chrome 57 and Firefox 54 only.
 
-## Usage:
+## Usage
 
 0. Stop Apache Tomcat if it's running
 1. Start MongoDB
