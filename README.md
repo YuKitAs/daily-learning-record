@@ -6,8 +6,8 @@ The main purpose of this web-app is to learn about full-stack development. Teste
 
 ## Usage
 
-0. Stop Apache Tomcat if it's running
-1. Start MongoDB
+0. Stop Apache Tomcat if it's running (see [note](https://github.com/YuKitAs/tech-note/blob/master/service-config/run-and-test-tomcat-on-ubuntu.md))
+1. Start MongoDB (see [note](https://github.com/YuKitAs/tech-note/blob/master/database/mongodb/run-mongodb-on-ubuntu.md))
 2. Run `java -jar path/to/daily-learning-record/dlr/build/libs/gs-rest-service-0.1.0.jar` (`gradle build` before if necessary)
 3. Run `polymer serve --open` in `path/to/daily-learning-record/dlr-ui` (`bower install` before if necessary) to open the app in browser
 
