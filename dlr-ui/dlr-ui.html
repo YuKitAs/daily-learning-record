@@ -158,11 +158,11 @@
                         <template>
                             <div class="buttons">
                                 <paper-icon-button src="../dlr-ui-app/assets/ic_create.svg" title="edit"
-                                                   on-tap="_edit" hidden="[[_isEditing(editing, item)]]">
+                                                   on-tap="_edit" hidden="[[editing]]">
                                 </paper-icon-button>
 
                                 <paper-icon-button src="../dlr-ui-app/assets/ic_delete.svg" title="remove"
-                                                   on-tap="_remove" hidden="[[_isEditing(editing, item)]]">
+                                                   on-tap="_remove" hidden="[[editing]]">
                                 </paper-icon-button>
 
                                 <paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
