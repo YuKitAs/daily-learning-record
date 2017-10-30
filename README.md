@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/YuKitAs/daily-learning-record.svg?branch=master)](https://travis-ci.org/YuKitAs/daily-learning-record)
+
 # daily learning record
 
 A simple Polymer 2.0 web application to record daily completion status of user-defined tasks.
