@@ -1,4 +1,5 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/vaadin-valo-theme/vaadin-date-picker.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid-sorter.html">
 <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
@@ -42,12 +43,8 @@
                 box-shadow: 0 0 20px rgba(55, 55, 55, 0.11), 0 0 10px rgba(75, 75, 75, 0.16);
             }
 
-            vaadin-date-picker:hover {
-                box-shadow: 0 0 10px rgba(55, 55, 55, 0.11), 0 0 6px rgba(75, 75, 75, 0.16);
-            }
-
             paper-checkbox {
-                --paper-checkbox-size: 28px;
+                --paper-checkbox-size: 26px;
                 --paper-checkbox-checked-color: #408cb0;
                 --paper-checkbox-unchecked-color: #336699;
             }
@@ -58,7 +55,8 @@
             }
 
             .buttons {
-                display: inline;
+                display: flex;
+                justify-content: space-around;
                 height: 36px;
             }
 

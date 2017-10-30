@@ -7,15 +7,16 @@
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "app-layout": "PolymerElements/app-layout#^2.0.1",
     "paper-input": "PolymerElements/paper-input#^2.0.1",
-    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0"
+    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "vaadin-grid": "vaadin-grid#^3.0.0-beta1",
+    "vaadin-date-picker": "vaadin-date-picker#^2.0.0-beta1",
+    "vaadin-valo-theme": "vaadin/vaadin-valo-theme"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0",
     "web-component-tester": "^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "vaadin-grid": "vaadin-grid#^3.0.0-beta1",
-    "vaadin-date-picker": "vaadin-date-picker#^2.0.0-beta1",
-    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0",
