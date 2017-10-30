@@ -163,13 +163,17 @@
                                                    on-tap="_edit" hidden="[[_isEditing(editing, item)]]">
                                 </paper-icon-button>
 
+                                <paper-icon-button src="../dlr-ui-app/assets/ic_delete.svg" title="remove"
+                                                   on-tap="_remove" hidden="[[_isEditing(editing, item)]]">
+                                </paper-icon-button>
+
                                 <paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
-                                                   on-tap="_save"
-                                                   hidden="[[!_isEditing(editing, item)]]"></paper-icon-button>
+                                                   on-tap="_save" hidden="[[!_isEditing(editing, item)]]">
+                                </paper-icon-button>
 
                                 <paper-icon-button src="../dlr-ui-app/assets/ic_clear.svg" title="cancel"
-                                                   on-tap="_cancel"
-                                                   hidden="[[!_isEditing(editing, item)]]"></paper-icon-button>
+                                                   on-tap="_cancel" hidden="[[!_isEditing(editing, item)]]">
+                                </paper-icon-button>
                             </div>
                         </template>
                     </vaadin-grid-column>
@@ -184,6 +188,10 @@
                 handle-as="json"
                 content-type="application/json"
                 last-response="{{items}}">
+        </iron-ajax>
+
+        <iron-ajax id="deleteAjax" url="http://localhost:8080/dlr/records/[[selectedDate]]" method="DELETE"
+                   response="{{result}}">
         </iron-ajax>
 
         <dlr-iron-ajax id="ajax" request="POST" date="{{selectedDate}}" task1="{{selectedTask1}}"
@@ -264,6 +272,15 @@
 
             _edit(e) {
                 this.editing = e.model.item;
+            }
+
+            _remove(e) {
+                this.selectedDate = e.model.item.date;
+                this.$.deleteAjax.generateRequest();
+
+                const index = this.items.indexOf(e.model.item);
+                this.$.grid.items.splice(index, 1);
+                this.$.grid.clearCache();
             }
 
             _save(e) {
