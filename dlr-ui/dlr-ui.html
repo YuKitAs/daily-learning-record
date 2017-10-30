@@ -1,14 +1,12 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
-<link rel="import" href="bower_components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html">
-<link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="dlr-ui-app/dlr-iron-ajax.html">
-<link rel="import" href="dlr-ui-app/custom-elements/hideable-paper-icon-button.html">
+<link rel="import" href="dlr-ui-app/custom-elements/dlr-iron-ajax.html">
 
 <dom-module id="dlr-ui">
     <template>
@@ -161,18 +159,17 @@
                     <vaadin-grid-column width="80px">
                         <template>
                             <div class="buttons">
-                                <hideable-paper-icon-button src="../dlr-ui-app/assets/ic_create.svg" title="edit"
-                                                            on-tap="_edit"
-                                                            hidden="[[editing]]">
-                                </hideable-paper-icon-button>
+                                <paper-icon-button src="../dlr-ui-app/assets/ic_create.svg" title="edit"
+                                                   on-tap="_edit" hidden="[[_isEditing(editing, item)]]">
+                                </paper-icon-button>
 
-                                <hideable-paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
-                                                            on-tap="_save"
-                                                            hidden="[[!_isEditing(editing, item)]]"></hideable-paper-icon-button>
+                                <paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
+                                                   on-tap="_save"
+                                                   hidden="[[!_isEditing(editing, item)]]"></paper-icon-button>
 
-                                <hideable-paper-icon-button src="../dlr-ui-app/assets/ic_clear.svg" title="cancel"
-                                                            on-tap="_cancel"
-                                                            hidden="[[!_isEditing(editing, item)]]"></hideable-paper-icon-button>
+                                <paper-icon-button src="../dlr-ui-app/assets/ic_clear.svg" title="cancel"
+                                                   on-tap="_cancel"
+                                                   hidden="[[!_isEditing(editing, item)]]"></paper-icon-button>
                             </div>
                         </template>
                     </vaadin-grid-column>
