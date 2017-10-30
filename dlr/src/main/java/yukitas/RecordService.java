@@ -23,7 +23,7 @@ public class RecordService {
         return repository.save(record);
     }
 
-    public void deleteRecord(String id) {
-        repository.delete(id);
+    public void deleteRecord(String date) {
+        repository.delete(repository.findByDate(date));
     }
 }

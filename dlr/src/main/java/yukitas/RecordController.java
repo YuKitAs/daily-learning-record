@@ -10,26 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/dlr")
 public class RecordController {
     @Autowired
     private RecordService service;
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.GET)
     public List<Record> getAllRecords() {
         return service.getAllRecords();
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/records", method = RequestMethod.POST)
     public Record saveRecord(@RequestBody Record record) {
         return service.createRecord(record);
     }
 
-    @RequestMapping(value = "/records/{id}", method = RequestMethod.DELETE)
-    public void deleteRecord(@PathVariable String id) {
-        service.deleteRecord(id);
+    @RequestMapping(value = "/records/{date}", method = RequestMethod.DELETE)
+    public void deleteRecord(@PathVariable String date) {
+        service.deleteRecord(date);
     }
 }

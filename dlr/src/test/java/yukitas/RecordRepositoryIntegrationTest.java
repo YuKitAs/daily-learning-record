@@ -55,7 +55,7 @@ public class RecordRepositoryIntegrationTest {
 
     @Test
     public void delete_WithRecordSuccessfullyDeleted() {
-        repository.delete(recordId);
+        repository.delete(repository.findByDate(DATE));
         assertThat(repository.findAll().iterator().hasNext()).isFalse();
     }
 }
