@@ -4,7 +4,7 @@
 
 A simple Polymer 2.0 web application to record daily completion status of user-defined tasks. Tested in Chrome 63 and Firefox 56 only.
 
-The main purpose of building this web-app is to get a basic understanding of full-stack web development - single-page web app with REST API backend.
+The main purpose of building this web app is to get a basic understanding of full-stack web development - single-page web app with REST API backend.
 
 ## Usage
 
