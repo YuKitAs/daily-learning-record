@@ -50,16 +50,10 @@
 
             static get properties() {
                 return {
-                    name: {
-                        type: String,
-                        notify: true
-                    },
-                    detail: {
-                        type: String,
-                        notify: true
-                    }
-                };
-            }
+                    name: String,
+                    detail: String
+                }
+            };
 
             _close() {
                 this.$["info-dialog"].close();
