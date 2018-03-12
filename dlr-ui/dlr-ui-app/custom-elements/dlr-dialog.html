@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="dlr-dialog">
+    <template>
+        <style>
+            #info-dialog {
+                width: 300px;
+                height: auto;
+                padding-bottom: 20px;
+            }
+
+            .dialog-header-line {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .name {
+                font-family: Lato;
+                font-size: 18px;
+                color: #204658;
+            }
+
+            .detail {
+                margin-top: 20px;
+                font-size: 16px;
+                color: #788186;
+            }
+        </style>
+
+        <paper-dialog id="info-dialog">
+            <div class="dialog-header-line">
+                <span class="name">[[name]]</span>
+                <paper-icon-button src="../dlr-ui-app/assets/ic_close.svg" title="close" on-tap="_close">
+                </paper-icon-button>
+            </div>
+
+            <div class="detail">[[detail]]</div>
+        </paper-dialog>
+    </template>
+
+    <script>
+        /** @polymerElement */
+        class DlrDialog extends Polymer.Element {
+            static get is() {
+                return 'dlr-dialog';
+            }
+
+            static get properties() {
+                return {
+                    name: {
+                        type: String,
+                        notify: true
+                    },
+                    detail: {
+                        type: String,
+                        notify: true
+                    }
+                };
+            }
+
+            _close() {
+                this.$["info-dialog"].close();
+            }
+        }
+
+        window.customElements.define(DlrDialog.is, DlrDialog);
+    </script>
+</dom-module>
