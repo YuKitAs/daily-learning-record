@@ -2,9 +2,9 @@
 
 # daily learning record
 
-A simple Polymer 2.0 web application to record daily completion status of user-defined tasks. Tested in Chrome 63 and Firefox 56 only.
+A single-page application (SPA) with REST API backend. It's used to record daily completion status of user-defined tasks.
 
-The main purpose of building this web app is to get a basic understanding of full-stack web development - single-page web app with REST API backend.
+Tested in Chrome 65 and Firefox 56 only.
 
 ## Usage
 
@@ -13,23 +13,30 @@ The main purpose of building this web app is to get a basic understanding of ful
 2. In `path/to/daily-learning-record/dlr`, run `gradle build` (`gradle clean` before if necessary)
 3. Run `java -jar build/libs/daily-learning-record-0.1.0.jar`
 4. In `path/to/daily-learning-record/dlr-ui`, run `bower install` to install all the web components
-5. Run `polymer serve --open` to open the app in browser
+5. Run `polymer serve --open` to open the app in default browser or open `http://localhost:8081/components/dlr-ui/dlr-ui-app/` in an arbitrary browser
 
 ## Screenshots
 
-![](../master/screenshots/Screenshot-daily-learning-record.png)
+View mode:
 
+![](../master/screenshots/dlr-ui.png)
 
-![](../master/screenshots/Screenshot-daily-learning-record-editing.png)
+Edit mode:
+
+![](../master/screenshots/dlr-ui-editing.png)
+
+Task details:
+
+![](../master/screenshots/dlr-ui-info.png)
 
 ## Main techniques involved
 
 * Frontend
-  * HTML/CSS
+  * HTML5/CSS
   * JavaScript
-  * Polymer
+  * Polymer 2.0
   * Bower
-  
+
 * Backend
   * Java
   * Gradle
