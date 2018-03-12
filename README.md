@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/YuKitAs/daily-learning-record.svg?branch=master)](https://travis-ci.org/YuKitAs/daily-learning-record)
 
-# daily learning record
+# Daily Learning Record
 
 A single-page application (SPA) with REST API backend. It's used to record daily completion status of user-defined tasks.
 
