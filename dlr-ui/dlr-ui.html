@@ -1,4 +1,5 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="bower_components/vaadin-valo-theme/vaadin-date-picker.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="bower_components/vaadin-grid/vaadin-grid-sorter.html">
@@ -8,45 +9,66 @@
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="dlr-ui-app/custom-elements/dlr-iron-ajax.html">
+<link rel="import" href="dlr-ui-app/custom-elements/dlr-dialog.html">
 
 <dom-module id="dlr-ui">
     <template>
         <style>
+            :root {
+                --theme-color: #408cb0;
+                --light-theme-color: #88B7CE;
+                --dark-theme-color: #204658;
+                --table-cell-color: #688492;
+            }
+
             vaadin-grid {
-                width: inherit;
-                height: 720px;
                 margin: auto;
+                width: inherit;
+                height: 730px;
+                border: 0;
+                box-shadow: 0 0 20px rgba(55, 55, 55, 0.11), 0 0 10px rgba(75, 75, 75, 0.16);
 
                 --vaadin-grid-header-cell: {
-                    background-color: #408cb0;
-                    font-family: 'Comfortaa', cursive;
-                    color: whitesmoke;
+                    height: 50px;
+                    background-color: var(--light-theme-color);
                     text-align: center;
-                    text-transform: capitalize;
-                    font-size: 16px;
+                    color: white;
+                    font-family: Lato;
+                    font-size: 20px;
                     font-weight: bold;
                 };
 
                 --vaadin-grid-body-cell: {
                     text-align: center;
-                    font-family: Lato;
+                    color: var(--table-cell-color);
+                    font-family: 'Itim', cursive;
                     font-size: 16px;
-                    color: #4f6464;
                 };
 
                 --vaadin-grid-body-row-odd-cell: {
-                    background-color: rgb(240, 242, 248);
+                    background-color: rgba(64, 140, 176, 0.1);
                 };
+
+                --vaadin-grid-body-row-hover-cell: {
+                    background-color: rgba(231, 241, 245, 0.5);
+                }
             }
 
-            vaadin-grid:hover {
-                box-shadow: 0 0 20px rgba(55, 55, 55, 0.11), 0 0 10px rgba(75, 75, 75, 0.16);
+            .info-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .header-cell-line {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             paper-checkbox {
-                --paper-checkbox-size: 26px;
-                --paper-checkbox-checked-color: #408cb0;
-                --paper-checkbox-unchecked-color: #336699;
+                --paper-checkbox-size: 20px;
+                --paper-checkbox-checked-color: var(--table-cell-color);
+                --paper-checkbox-unchecked-color: var(--table-cell-color);
             }
 
             paper-icon-button#new {
@@ -60,124 +82,178 @@
                 height: 36px;
             }
 
+            app-header {
+                position: absolute;
+                z-index: -1;
+                height: 200px;
+                width: 100%;
+                background-color: var(--theme-color);
+            }
+
+            #title-line {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 30px;
+            }
+
             #title {
-                margin-top: 20px;
-                text-align: center;
-                font-family: 'Lemonada', cursive;
-                font-size: 34px;
+                font-family: 'Libre Baskerville', cursive;
+                font-size: 36px;
                 font-weight: bold;
-                color: #4f6464;
+                color: var(--dark-theme-color);
+                text-transform: uppercase;
             }
 
             #note-icon {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+                margin-right: 20px;
                 width: 38px;
+                color: white;
             }
 
             .main-content {
-                width: 1000px;
                 margin: auto;
+                width: 60vw;
+                padding-top: 80px;
             }
 
-            .add {
-                width: inherit;
+            #add {
+                margin-bottom: 20px;
+                text-align: right;
             }
 
             #error-msg {
-                display: inline;
-                margin-left: 20px;
+                margin-right: 10px;
                 font-family: Lato;
-                color: #ad1457;
+                color: var(--dark-theme-color);
+            }
+
+            #copyright {
+                margin-top: 30px;
+                text-align: center;
+                font-family: Lato;
+                font-size: 16px;
+                color: var(--theme-color);
             }
         </style>
 
-        <div id="title">Daily Learning Record</div>
-        <img id="note-icon" src="../dlr-ui-app/assets/ic_event.svg"/>
+        <app-header>
+            <div id="title-line">
+                <img id="note-icon" src="../dlr-ui-app/assets/ic_event.svg"/>
+                <span id="title">Daily Learning Record</span>
+            </div>
+        </app-header>
 
         <div class="main-content">
-            <div class="add">
-                <vaadin-date-picker id="date-picker" value="{{date}}" placeholder="Choose a date"></vaadin-date-picker>
-                <paper-icon-button id="new" src="../dlr-ui-app/assets/ic_add_box.svg"
-                                   title="new" on-tap="_add"></paper-icon-button>
-                <div id="error-msg"></div>
+            <div id="add">
+                <span id="error-msg"></span>
+                <vaadin-date-picker value="{{date}}" placeholder="Choose a date"></vaadin-date-picker>
+                <paper-icon-button id="new" src="../dlr-ui-app/assets/ic_add_circle.svg"
+                                   title="add a new record" on-tap="_add"></paper-icon-button>
             </div>
-            <p></p>
 
-            <div>
-                <vaadin-grid id="grid" items="[[items]]">
-                    <vaadin-grid-column width="80px" frozen="true">
-                        <template class="header">
-                            <vaadin-grid-sorter path="date" direction="desc">Datum</vaadin-grid-sorter>
-                        </template>
-                        <template>[[item.date]]</template>
-                    </vaadin-grid-column>
+            <vaadin-grid id="grid" items="[[items]]">
+                <vaadin-grid-column width="10%" frozen="true">
+                    <template class="header">
+                        <div class="header-cell-line">
+                            <vaadin-grid-sorter path="date" direction="desc">Date</vaadin-grid-sorter>
+                        </div>
+                    </template>
+                    <template>[[item.date]]</template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template class="header">{{task1}}</template>
-                        <template>
-                            <paper-checkbox noink checked="{{item.task1}}"
-                                            disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
-                        </template>
-                    </vaadin-grid-column>
+                <vaadin-grid-column width="10%">
+                    <template class="header">
+                        <div class="header-cell-line"><span>[[task1.name]]</span>
+                            <paper-icon-button class="info-icon" noink src="../dlr-ui-app/assets/ic_info.svg"
+                                               title="info" on-tap="_openDialog"></paper-icon-button>
+                        </div>
+                    </template>
+                    <template>
+                        <paper-checkbox noink checked="{{item.task1}}"
+                                        disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                    </template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template class="header">{{task2}}</template>
-                        <template>
-                            <paper-checkbox noink checked="{{item.task2}}"
-                                            disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
-                        </template>
-                    </vaadin-grid-column>
+                <vaadin-grid-column width="10%">
+                    <template class="header">
+                        <div class="header-cell-line"><span>[[task2.name]]</span>
+                            <paper-icon-button class="info-icon" noink src="../dlr-ui-app/assets/ic_info.svg"
+                                               title="info" on-tap="_openDialog"></paper-icon-button>
+                        </div>
+                    </template>
+                    <template>
+                        <paper-checkbox noink checked="{{item.task2}}"
+                                        disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                    </template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template class="header">{{task3}}</template>
-                        <template>
-                            <paper-checkbox noink checked="{{item.task3}}"
-                                            disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
-                        </template>
-                    </vaadin-grid-column>
+                <vaadin-grid-column width="10%">
+                    <template class="header">
+                        <div class="header-cell-line"><span>[[task3.name]]</span>
+                            <paper-icon-button class="info-icon" noink src="../dlr-ui-app/assets/ic_info.svg"
+                                               title="info" on-tap="_openDialog"></paper-icon-button>
+                        </div>
+                    </template>
+                    <template>
+                        <paper-checkbox noink checked="{{item.task3}}"
+                                        disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                    </template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template class="header">{{task4}}</template>
-                        <template>
-                            <paper-checkbox noink checked="{{item.task4}}"
-                                            disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
-                        </template>
-                    </vaadin-grid-column>
+                <vaadin-grid-column width="10%">
+                    <template class="header">
+                        <div class="header-cell-line"><span>[[task4.name]]</span>
+                            <paper-icon-button class="info-icon" noink src="../dlr-ui-app/assets/ic_info.svg"
+                                               title="info" on-tap="_openDialog"></paper-icon-button>
+                        </div>
+                    </template>
+                    <template>
+                        <paper-checkbox noink checked="{{item.task4}}"
+                                        disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                    </template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template class="header">{{task5}}</template>
-                        <template>
-                            <paper-checkbox noink checked="{{item.task5}}"
-                                            disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
-                        </template>
-                    </vaadin-grid-column>
+                <vaadin-grid-column width="10%">
+                    <template class="header">
+                        <div class="header-cell-line"><span>[[task5.name]]</span>
+                            <paper-icon-button class="info-icon" noink src="../dlr-ui-app/assets/ic_info.svg"
+                                               title="info" on-tap="_openDialog"></paper-icon-button>
+                        </div>
+                    </template>
+                    <template>
+                        <paper-checkbox noink checked="{{item.task5}}"
+                                        disabled="[[!_isEditing(editing, item)]]"></paper-checkbox>
+                    </template>
+                </vaadin-grid-column>
 
-                    <vaadin-grid-column width="80px">
-                        <template>
-                            <div class="buttons">
-                                <paper-icon-button src="../dlr-ui-app/assets/ic_create.svg" title="edit"
-                                                   on-tap="_edit" hidden="[[editing]]">
-                                </paper-icon-button>
+                <vaadin-grid-column>
+                    <template>
+                        <div class="buttons">
+                            <paper-icon-button src="../dlr-ui-app/assets/ic_create.svg" title="edit"
+                                               on-tap="_edit" hidden="[[editing]]">
+                            </paper-icon-button>
 
-                                <paper-icon-button src="../dlr-ui-app/assets/ic_delete.svg" title="remove"
-                                                   on-tap="_remove" hidden="[[editing]]">
-                                </paper-icon-button>
+                            <paper-icon-button src="../dlr-ui-app/assets/ic_delete.svg" title="remove"
+                                               on-tap="_remove" hidden="[[editing]]">
+                            </paper-icon-button>
 
-                                <paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
-                                                   on-tap="_save" hidden="[[!_isEditing(editing, item)]]">
-                                </paper-icon-button>
+                            <paper-icon-button src="../dlr-ui-app/assets/ic_save.svg" title="save"
+                                               on-tap="_save" hidden="[[!_isEditing(editing, item)]]">
+                            </paper-icon-button>
 
-                                <paper-icon-button src="../dlr-ui-app/assets/ic_clear.svg" title="cancel"
-                                                   on-tap="_cancel" hidden="[[!_isEditing(editing, item)]]">
-                                </paper-icon-button>
-                            </div>
-                        </template>
-                    </vaadin-grid-column>
-                </vaadin-grid>
-            </div>
+                            <paper-icon-button src="../dlr-ui-app/assets/ic_clear.svg" title="cancel"
+                                               on-tap="_cancel" hidden="[[!_isEditing(editing, item)]]">
+                            </paper-icon-button>
+                        </div>
+                    </template>
+                </vaadin-grid-column>
+            </vaadin-grid>
+
+            <div id="copyright">Designed by YuKitAs © 2017-2018</div>
         </div>
+
+        <dlr-dialog id="info" name="[[taskName]]" detail="[[taskDetail]]"></dlr-dialog>
 
         <iron-ajax
                 auto
@@ -214,24 +290,27 @@
             static get properties() {
                 return {
                     task1: {
-                        type: String,
-                        value: "Fahren"
+                        type: Object,
+                        value: {name: "Task1", detail: "Ea duis bonorum nec, falli paulo aliquid ei eum."}
                     },
                     task2: {
-                        type: String,
-                        value: "Bass"
+                        type: Object,
+                        value: {name: "Task2", detail: "No nam ipsum lorem aliquip, accumsan quaerendum ei usu."}
                     },
                     task3: {
-                        type: String,
-                        value: "Norwegisch"
+                        type: Object,
+                        value: {name: "Task3", detail: "Has at minim mucius aliquam, est id tempor laoreet."}
                     },
                     task4: {
-                        type: String,
-                        value: "Uni"
+                        type: Object,
+                        value: {name: "Task4", detail: "Id nam odio natum malorum, tibique copiosae expetenda mel ea."}
                     },
                     task5: {
-                        type: String,
-                        value: "Programmieren"
+                        type: Object,
+                        value: {
+                            name: "Task5",
+                            detail: "Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam."
+                        }
                     },
                     items: Array,
                     editing: Object,
@@ -240,7 +319,9 @@
                     selectedTask2: Boolean,
                     selectedTask3: Boolean,
                     selectedTask4: Boolean,
-                    selectedTask5: Boolean
+                    selectedTask5: Boolean,
+                    taskName: String,
+                    taskDetail: String
                 };
             }
 
@@ -300,6 +381,15 @@
             _cancel() {
                 this.editing = null;
                 this.$.grid.clearCache();
+            }
+
+            _openDialog(e) {
+                let data = e.model.__data;
+                let task = data[Object.keys(data)[0]];
+                this.taskName = task.name;
+                this.taskDetail = task.detail;
+
+                this.$.info.$["info-dialog"].open();
             }
         }
 
