@@ -3,8 +3,8 @@
 .idea/
 
 # Gradle
-/build/
-.gradle/
+dlr/build/
+dlr/.gradle/
 
 # Bower
 dlr-ui/bower_components/
