@@ -27,11 +27,10 @@ Task details:
 
 ![](../master/screenshots/dlr-ui-info.png)
 
-## Main techniques involved
+## Technologies
 
 * Frontend
-  * HTML5/CSS
-  * JavaScript
+  * HTML5/CSS/JavaScript
   * Polymer 2.0
   * Bower
 
